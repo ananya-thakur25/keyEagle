@@ -28,12 +28,13 @@ def detect_keylogger():
         # Predict using the trained model
         prediction = model.predict(data)[0]
 
-        # Set a threshold for CPU usage to trigger alerts
+        # Set thresholds for CPU and memory usage to trigger alerts
         cpu_threshold = 70  # Adjust this threshold based on your needs
+        memory_threshold = 80  # Adjust this threshold based on your needs
 
         # Update the status label based on detection
-        if prediction == 1 or cpu_usage > cpu_threshold:
-            alert_message = f"⚠️ WARNING: Possible Keylogger Detected at {timestamp}!"
+        if prediction == 1 or cpu_usage > cpu_threshold or memory_usage > memory_threshold:
+            alert_message = f"⚠️ WARNING: Possible Keylogger Detected at {timestamp}!\nCPU Usage: {cpu_usage}%\nMemory Usage: {memory_usage}%"
             messagebox.showwarning("Keylogger Alert", alert_message)
             status_label.config(text="Status: Keylogger Detected!", foreground="#FF6B6B")
         else:
